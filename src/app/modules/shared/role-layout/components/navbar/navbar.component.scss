@@ -1,0 +1,27 @@
+$main-purple: rgb(132, 79, 193);
+@use '../sidebar/sidebar.component' as sidebar;
+
+.navbar-left {
+  width: sidebar.$sidebar-expanded-width; // iguales ✔
+}
+.custom-navbar {
+  height: 60px;
+
+  .navbar-left {
+    background-color: $main-purple;
+    color: white;
+  }
+
+  .navbar-right {
+    background-color: white;
+    border-bottom: 5px solid $main-purple;
+  }
+
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+
+  button.btn {
+    font-size: 0.85rem;
+  }
+}

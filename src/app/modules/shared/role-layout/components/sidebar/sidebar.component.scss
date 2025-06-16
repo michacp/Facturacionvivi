@@ -1,0 +1,99 @@
+$sidebar-expanded-width: 240px;
+$sidebar-collapsed-width: 72px;
+$sidebar-bg: #ffffff;
+$sidebar-text: #212529;
+$sidebar-hover: #f1f3f5;
+$sidebar-border: #dee2e6;
+
+.sidebar {
+  position: fixed;
+  top: 5rem; // separación desde la topbar
+  left: 1rem;
+  bottom: 1rem;
+  width: $sidebar-expanded-width;
+  background-color: $sidebar-bg;
+  color: $sidebar-text;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.20);
+  overflow-x: hidden;
+  transition: width 0.5s ease-in-out, border-radius 0.5s ease-in-out; 
+
+  padding-top: 1rem;
+
+ .nav-link { 
+  cursor: pointer;
+  position: relative;
+
+  &:hover,
+  &.active {
+    background-color: darken($sidebar-hover, 8%); // Más oscuro que antes
+    color: darken($sidebar-text, 10%);
+    transform: translateX(4px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  i.bi-chevron-down {
+    transition: transform 0.3s ease;
+  }
+  }
+
+  .nav > div {
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+
+    &.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    ul {
+      // Quitar fondo, borde, radio y sombra para evitar estilo de card
+      background-color: transparent;
+      border-left: none;
+      padding: 0.5rem 0 0.5rem 0.5rem; // solo un pequeño padding izquierdo si quieres
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    li {
+      padding-left: 0.5rem;
+
+      .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+        color: $sidebar-text;
+
+        &:hover {
+          background-color: darken($sidebar-hover, 8%); // Igual que arriba
+          color: darken($sidebar-text, 15%);
+          transition: all 0.3s ease;
+        }
+      }
+    }
+  }
+    // Separador opcional entre secciones
+  .nav > a + div::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: $sidebar-border;
+    margin: 0.5rem 1rem;
+    opacity: 0.3;
+  }
+}
+// Rotación de icono
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+// Mejoras responsive (mantienes tu media query)
+@media (max-width: 991.98px) {
+  .sidebar {
+    width: $sidebar-collapsed-width;
+
+    .link-text {
+      display: none;
+    }
+  }
+}
