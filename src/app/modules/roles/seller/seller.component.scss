@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.row.flex-grow-1 {
+  flex-grow: 1;
+  min-height: 0; // Permite que los hijos usen flex correctamente
+  overflow: hidden;
+}
+
+main {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0; // Evita desbordamiento horizontal
+  padding-bottom: 24px; // Espacio para evitar scroll innecesario
+}
