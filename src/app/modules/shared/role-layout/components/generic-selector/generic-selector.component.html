@@ -1,0 +1,30 @@
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label>{{ label }}</mat-label>
+
+  <!-- Ícono de borrar (izquierda) -->
+  <button mat-icon-button matPrefix *ngIf="formControl.value" (click)="clearField()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <input
+    type="text"
+    matInput
+    [placeholder]="placeholder"
+    [matAutocomplete]="auto"
+    [formControl]="formControl"
+    (focus)="onInputFocus()"
+  />
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option
+      *ngFor="let option of filteredOptions"
+      [value]="option"
+      (onSelectionChange)="onSelectOption($event, option)"
+    >
+      {{ option.name }}
+    </mat-option>
+  </mat-autocomplete>
+
+  <!-- Ícono de bandera (derecha) -->
+  <mat-icon matSuffix *ngIf="icon">{{ icon }}</mat-icon>
+</mat-form-field>

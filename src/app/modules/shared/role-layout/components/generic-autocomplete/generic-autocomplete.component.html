@@ -1,0 +1,40 @@
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label>{{ label }}</mat-label>
+
+  <input type="text"
+         matInput
+         [placeholder]="placeholder"
+         [matAutocomplete]="auto"
+         [formControl]="control"
+         (keyup.enter)="onEnter()" >
+
+  <!-- Botón "+" con protección real contra foco -->
+  <button *ngIf="showAddButton"
+          mat-icon-button
+          type="button"
+          matPrefix
+          tabindex="-1"
+          (click)="onAddClick($event)"
+          [matTooltip]="'Nuevo ' + label.toLowerCase()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <!-- Botón de búsqueda -->
+  <button *ngIf="showSearchButton"
+          mat-icon-button 
+          type="button"
+          matSuffix
+          tabindex="-1"
+          (click)="onSearchClick($event)"
+          [matTooltip]="'Buscar ' + label.toLowerCase()">
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions$ | async"
+                [value]="option"
+                (onSelectionChange)="onSelect(option)">
+      {{ option.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

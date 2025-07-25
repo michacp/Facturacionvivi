@@ -1,0 +1,57 @@
+<div class="cliente-form-container">
+  <h2 class="form-title">Ingresar Nuevo Cliente</h2>
+
+  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Tipo de Identificación</mat-label>
+        <mat-select formControlName="tipoIdentificacion">
+          <mat-option *ngFor="let tipo of tiposIdentificacion" [value]="tipo.id">
+            {{ tipo.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Identificación</mat-label>
+        <input matInput formControlName="identificacion">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Razón Social / Nombre</mat-label>
+        <input matInput formControlName="razonSocial">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Dirección</mat-label>
+        <textarea matInput rows="2" formControlName="direccion"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12 text-end">
+      <button mat-raised-button color="warn" type="button" class="me-2" (click)="cerrarModal()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">Guardar Cliente</button>
+    </div>
+  </form>
+</div>

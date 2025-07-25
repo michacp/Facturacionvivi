@@ -1,0 +1,145 @@
+<form [formGroup]="facturaForm" class="container mt-3">
+  <!-- Cliente -->
+  <div class="row">
+    <div class="col-md-12">
+      <app-generic-autocomplete *ngIf="elemtomonstrar" [label]="'Cliente'" [placeholder]="'Buscar Cliente por DNI o Razón Social...'"
+        [control]="supplierSearch" [options]="Clientes" (addClicked)="addProveedor()" (enterPressed)="onSearch($event)"
+        (searchClicked)="onSearch($event)" (optionSelected)="onProveedorSeleccionado($event)">
+      </app-generic-autocomplete>
+    </div>
+  </div>
+
+  <!-- Datos de Factura -->
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Fecha de Emisión</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaEmision">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+<mat-form-field appearance="fill" class="w-100">
+  <mat-label>Tipo Comprobante</mat-label>
+  <mat-select formControlName="tipoComprobante">
+    <mat-option *ngFor="let tipo of tipocomprobante" [value]="tipo.id">
+      {{ tipo.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Moneda</mat-label>
+        <mat-select formControlName="moneda">
+          <mat-option value="USD">USD</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Forma de Pago</mat-label>
+        <mat-select formControlName="formaPago">
+          <mat-option *ngFor="let forma of formadepago" [value]="forma.id">{{forma.name}}</mat-option> 
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Plazo de Pago</mat-label>
+        <input matInput formControlName="plazoPago" placeholder="Ej: 30 días">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Observaciones</mat-label>
+        <input matInput formControlName="observaciones">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Autocomplete Productos -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <app-generic-autocomplete [label]="'Producto'" [placeholder]="'Buscar Producto por Nombre...'"
+        [control]="productSearch" [options]="Productos" (addClicked)="addProveedor()"
+        (enterPressed)="onSearchProduct($event)" (searchClicked)="onSearchProduct($event)"
+        (optionSelected)="onProductoSeleccionado($event)">
+      </app-generic-autocomplete>
+    </div>
+  </div>
+
+  <!-- Tabla Productos -->
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table class="table table-bordered table-sm text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Producto ID</th>
+            <th>Cantidad</th>
+            <th>Precio U</th>
+            <th>Descuento</th>
+            <th>IVA</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="productos">
+          <tr *ngFor="let item of productos.controls; let i = index" [formGroupName]="i">
+            <td class="text-start"><span>{{ item.get('productoname')?.value }}</span></td>
+
+            <td class="col-cantidad">
+              <input matInput type="number" formControlName="cantidad" class="form-control" (input)="calcularTotales()">
+            </td>
+
+            <td class="col-precio">
+              <input matInput type="number" formControlName="precioUnitario" class="form-control"
+                (input)="calcularTotales()">
+            </td>
+
+            <td class="col-descuento">
+              <input matInput type="number" formControlName="descuento" class="form-control"
+                (input)="calcularTotales()">
+            </td>
+
+            <td class="col-impuesto">
+              <mat-select formControlName="codigoImpuesto" class="w-100" (selectionChange)="calcularTotales()">
+                <mat-option *ngFor="let imp of impuestos" [value]="imp.id">
+                  {{ imp.name }}
+                </mat-option>
+              </mat-select>
+            </td>
+
+            <td class="col-descuento">
+              <button mat-icon-button color="warn" (click)="eliminarProducto(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Totales -->
+  <div class="row mt-4">
+    <div class="col-md-3" *ngFor="let campo of camposTotales">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>{{ campo.label }}</mat-label>
+        <input matInput [formControlName]="campo.control" readonly>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Botón Guardar -->
+  <div class="row mt-4">
+    <div class="col-md-12 text-end">
+      <button mat-raised-button color="accent" (click)="guardarFactura()">
+        Guardar Factura
+      </button>
+    </div>
+  </div>
+</form>

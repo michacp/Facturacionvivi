@@ -1,0 +1,33 @@
+.venta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.producto-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.tipo-documento {
+  margin-top: 1rem;
+}
+
+.totales {
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
+.col-cantidad,
+.col-precio,
+.col-descuento {
+  max-width: 100px;
+  width: 100px;
+}
+ 
+.col-impuesto {
+  max-width: 200px;
+  width: 200px;
+}
+ 

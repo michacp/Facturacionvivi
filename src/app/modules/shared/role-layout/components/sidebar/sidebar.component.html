@@ -33,7 +33,7 @@
       <ul class="nav flex-column ms-4">
         <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Ingresos</a></li>
         <li><a routerLink="/new-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Nuevo Producto</a></li> 
-        <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Productos</a></li>       
+        <li><a routerLink="/list-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Productos</a></li>       
       </ul>
     </div>
 
@@ -48,8 +48,8 @@
     </a>
     <div *ngIf="ventasOpen"  class="show">
       <ul class="nav flex-column ms-4">
-        <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Lista de Ventas</a></li>
-        <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Nueva Venta</a></li>
+        <li><a routerLink="/list-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Lista de Ventas</a></li>
+        <li><a routerLink="/new-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Nueva Venta</a></li>
         <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Devoluciones</a></li>
       </ul>
     </div>
