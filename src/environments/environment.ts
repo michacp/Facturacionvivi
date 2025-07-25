@@ -2,5 +2,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://eb1506521386.ngrok-free.app', 
+  apiUrl: 'https://api.teamcellmania.com:3950', 
   };

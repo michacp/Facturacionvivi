@@ -24,7 +24,7 @@ export class ProductFormComponent {
   items: any[] = [];
   ngOnInit(): void {
     this.getnewdata()
-    this.last5itemssave();
+     this.last5itemssave();
     this.initializeForm();
   }
   last5itemssave() {
