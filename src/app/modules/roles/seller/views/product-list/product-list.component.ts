@@ -35,7 +35,7 @@ displayedColumns: string[] = [
   @ViewChild(MatSort) sort!: MatSort;
 searchText: string = '';
 selectedCategory: number | string = '';
-itemsPerPage: number = 2;
+itemsPerPage: number = 30;
 currentPage: number = 0;
  totalItems: number = 0;
 filteredProducts = new MatTableDataSource<ProductoList>();
