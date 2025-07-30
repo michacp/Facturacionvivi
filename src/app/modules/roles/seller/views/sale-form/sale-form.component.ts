@@ -10,7 +10,7 @@ import { ModalService } from '../../../../shared/role-layout/service/modal/modal
 import { Subscription } from 'rxjs';
 import { ClientesListSelect } from '../../models/Customer.interface';
 import { ClientService } from '../../service/client/client.service';
-import { Factura, FormaPago, ImpuestoSales, TipoComprobante } from '../../models/Sales.interface';
+import { Factura, FormaPago, ImpuestoSales, SaleList5last, TipoComprobante } from '../../models/Sales.interface';
 import { ProductosListSelect } from '../../models/Products.interface';
 import { ProductService } from '../../service/product/product.service';
 import { SaleService } from '../../service/sale/sale.service';
@@ -30,7 +30,7 @@ export class SaleFormComponent {
   impuestos: ImpuestoSales[] = [];
   tipocomprobante: TipoComprobante[] = []
   formadepago: FormaPago[] = []
-
+last5Sales:SaleList5last[]=[]
   private subscription!: Subscription;
 
   camposTotales = [
@@ -52,6 +52,7 @@ export class SaleFormComponent {
   }
 
   ngOnInit() {
+    this.loadLast5Sales()
     this.initFacturaForm()
     this.getnewdata()
     this.subscription = this.modalService.modalResponse$.subscribe(data => {
@@ -208,5 +209,18 @@ export class SaleFormComponent {
     } else {
       console.warn('Formulario inválido');
     }
+  }
+
+  loadLast5Sales(){
+   this.salesService.listLast5Sales().subscribe({
+    next: (sales) => {
+      this.last5Sales = sales;
+      console.log(this.last5Sales)
+    },
+    error: (err) => {
+      console.error('Error:', err);
+      this.last5Sales = [];
+    }
+  });
   }
 }

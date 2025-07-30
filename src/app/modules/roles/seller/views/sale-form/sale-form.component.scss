@@ -1,3 +1,27 @@
+form {
+  margin: 32px 24px 0 24px; // top, right, bottom, left
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  input.ng-invalid.ng-touched,
+  select.ng-invalid.ng-touched,
+  textarea.ng-invalid.ng-touched {
+    border-color: #dc3545;
+  }
+
+  .form-check-label {
+    margin-left: 0.5rem;
+  }
+}
+
+.titulo-producto {
+  margin-top: 32px;
+}
+
+
+
 .venta-form {
   display: flex;
   flex-direction: column;
@@ -31,3 +55,55 @@
   width: 200px;
 }
  
+
+
+
+
+
+ $primary-color: rgb(132, 79, 193);
+$primary-light: lighten($primary-color, 30%);
+$primary-dark: darken($primary-color, 15%);
+
+.compact-card {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  border-left: 4px solid $primary-color;
+  background-color: #fdfaff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(132, 79, 193, 0.2);
+  }
+
+  .mat-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $primary-dark;
+    margin-bottom: 0.25rem;
+  }
+
+  .mat-card-subtitle {
+    font-size: 0.8rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-linea {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+
+    span {
+      color: #333;
+
+      strong {
+        color: $primary-color;
+      }
+    }
+  }
+}

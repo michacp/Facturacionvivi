@@ -60,8 +60,12 @@ export class SaleService {
     );
   }
 
-    listSales(data: any): Observable<any[]> {
+  listSales(data: any): Observable<any[]> {
     const endpoint = `${this.apiUrl}/sales/list`;
     return this.http.post<any[]>(endpoint, data);
+  }
+  listLast5Sales(): Observable<any[]> {
+    const endpoint = `${this.apiUrl}/sales/get5lastsales`;
+    return this.http.get<any[]>(endpoint);
   }
 }

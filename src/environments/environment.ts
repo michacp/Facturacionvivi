@@ -2,5 +2,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.teamcellmania.com:3950', 
+  apiUrl: 'https://localhost:3950', 
   };

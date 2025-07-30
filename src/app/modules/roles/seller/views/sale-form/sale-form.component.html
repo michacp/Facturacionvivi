@@ -1,4 +1,7 @@
-<form [formGroup]="facturaForm" class="container mt-3">
+<h2 class="text-center mb-4 titulo-producto">Nueva Venta</h2>
+<div class="row">
+<div class="col-lg-8">
+<form [formGroup]="facturaForm" class="row g-3 justify-content-center">
   <!-- Cliente -->
   <div class="row">
     <div class="col-md-12">
@@ -143,3 +146,30 @@
     </div>
   </div>
 </form>
+</div>
+<div class="col-lg-4">
+  <h4 class="text-center mb-3">Últimas 5 Ventas</h4>
+
+<mat-card *ngFor="let venta of last5Sales" class="mb-2 compact-card">
+  <mat-card-title class="titulo">{{ venta.saleNumber }}</mat-card-title>
+  <mat-card-subtitle class="codigo">
+    Fecha: {{ venta.issueDate | date:'shortDate' }}
+  </mat-card-subtitle>
+
+  <div class="info-linea">
+    <span><strong>Monto Total:</strong> ${{ +venta.totalAmount | number:'1.2-2' }}</span>
+  </div>
+
+  <div *ngFor="let item of venta.items.slice(0, 2)" class="info-linea">
+    <span>{{ item.productName }} (x{{ item.quantity }})</span>
+    <span>${{ item.unitPrice | number:'1.2-2' }}</span>
+  </div>
+
+  <div *ngIf="venta.items.length > 2" class="info-linea">
+    <span class="text-muted">+ {{ venta.items.length - 2 }} más...</span>
+  </div>
+</mat-card>
+
+</div>
+
+</div>

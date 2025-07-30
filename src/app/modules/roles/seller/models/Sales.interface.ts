@@ -42,3 +42,21 @@ export interface FormaPago{
   id:string;
   name:string; 
 }
+
+export interface SaleItem {
+  detailId: number;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  discount: number;
+  taxName: string;
+  taxPercentage: number;
+}
+
+export interface SaleList5last {
+  saleId: number;
+  saleNumber: string;
+  issueDate: string; // o puedes usar Date si lo conviertes
+  totalAmount: number;
+  items: SaleItem[];
+}
