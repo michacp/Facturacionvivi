@@ -10,7 +10,7 @@ import { SaleService } from '../../service/sale/sale.service';
   styleUrl: './sale-list.component.scss'
 })
 export class SaleListComponent {
-displayedColumns: string[] = [
+  displayedColumns: string[] = [
     'factura_id',
     'cliente',
     'fecha_emision',
@@ -24,14 +24,14 @@ displayedColumns: string[] = [
     searchQuery: '',
     forma_pago: '',
     pageIndex: 0,
-    pageSize: 10
+    pageSize: 30
   };
   totalItems = 0;
-  itemsPerPage = 10;
+  itemsPerPage = 30;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private saleservice: SaleService) {}
+  constructor(private saleservice: SaleService) { }
 
   ngOnInit(): void {
     this.loadVentas();

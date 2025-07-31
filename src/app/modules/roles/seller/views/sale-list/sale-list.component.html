@@ -34,37 +34,37 @@
     <!-- ID -->
     <ng-container matColumnDef="factura_id">
       <th mat-header-cell *matHeaderCellDef class="table-header">#</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.factura_id }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.sale_number}}</td>
     </ng-container>
 
     <!-- Cliente -->
     <ng-container matColumnDef="cliente">
       <th mat-header-cell *matHeaderCellDef class="table-header">Cliente</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.cliente }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.customer }}</td>
     </ng-container>
 
     <!-- Fecha -->
     <ng-container matColumnDef="fecha_emision">
       <th mat-header-cell *matHeaderCellDef class="table-header">Fecha</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.fecha_emision | date: 'short' }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.issue_date | date: 'short' }}</td>
     </ng-container>
 
     <!-- Tipo Comprobante -->
     <ng-container matColumnDef="tipo_comprobante">
       <th mat-header-cell *matHeaderCellDef class="table-header">Tipo</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.tipo_comprobante }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.document_type }}</td>
     </ng-container>
 
     <!-- Forma de pago -->
     <ng-container matColumnDef="forma_pago">
       <th mat-header-cell *matHeaderCellDef class="table-header">Forma de pago</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.forma_pago }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.payment_method}}</td>
     </ng-container>
 
     <!-- Total -->
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef class="table-header">Total</th>
-      <td mat-cell *matCellDef="let venta">${{ venta.total }}</td>
+      <td mat-cell *matCellDef="let venta">${{ venta.total_amount }}</td>
     </ng-container>
 
     <!-- Ítems -->
@@ -83,7 +83,7 @@
   <!-- Paginador -->
   <mat-paginator [length]="totalItems"
                  [pageSize]="itemsPerPage"
-                 [pageSizeOptions]="[10, 50, 100, 200]"
+                 [pageSizeOptions]="[30, 50, 100, 200]"
                  showFirstLastButtons
                  (page)="onPageChange($event)">
   </mat-paginator>

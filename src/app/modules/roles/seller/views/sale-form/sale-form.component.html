@@ -161,7 +161,7 @@
   </div>
 
   <div *ngFor="let item of venta.items.slice(0, 2)" class="info-linea">
-    <span>{{ item.productName }} (x{{ item.quantity }})</span>
+    <span>({{ item.quantity }}) {{ item.productName }} </span>
     <span>${{ item.unitPrice | number:'1.2-2' }}</span>
   </div>
 
