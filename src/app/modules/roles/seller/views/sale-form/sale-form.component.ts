@@ -14,6 +14,7 @@ import { Factura, FormaPago, ImpuestoSales, SaleList5last, TipoComprobante } fro
 import { ProductosListSelect } from '../../models/Products.interface';
 import { ProductService } from '../../service/product/product.service';
 import { SaleService } from '../../service/sale/sale.service';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-sale-form',
   standalone: false,
@@ -188,28 +189,41 @@ last5Sales:SaleList5last[]=[]
 
 
   guardarFactura() {
-    if (this.facturaForm.valid) {
-      this.elemtomonstrar = false
-      this.salesService.saveSale(this.facturaForm.value).subscribe({
-        next: () => {
-          this.initFacturaForm()
-          this.getnewdata()
-          this.elemtomonstrar = true
-          this.supplierSearch.reset();
-          this.Clientes = []
-          console.log('Venta guardada correctamente');
-          // Puedes resetear el formulario o hacer otras acciones aquí
-        },
-        error: (error) => {
-          // Manejo adicional de errores si es necesario
-          console.error('Error al guardar la venta:', error);
-        }
-      });
-      // Aquí iría la llamada al backend
-    } else {
-      console.warn('Formulario inválido');
-    }
+// Verificar que facturaForm existe y es válido
+  if (!this.facturaForm || !this.facturaForm.valid) {
+    console.warn('Formulario inválido o no inicializado');
+    return;
   }
+
+  // Obtener el control de fecha de manera segura
+  const fechaControl = this.facturaForm.get('fechaEmision');
+  if (!fechaControl || !fechaControl.value) {
+    console.warn('Campo fechaEmision no encontrado o sin valor');
+    return;
+  }
+
+  // Formatear los valores
+  const formValue = {
+    ...this.facturaForm.value,
+    fechaEmision: this.formatDateToLocalString(fechaControl.value)
+  };
+  
+  this.elemtomonstrar = false;
+  this.salesService.saveSale(formValue).subscribe({
+    next: () => {
+      this.initFacturaForm();
+      this.getnewdata();
+      this.elemtomonstrar = true;
+      this.supplierSearch.reset();
+      this.Clientes = [];
+      console.log('Venta guardada correctamente');
+    },
+    error: (error) => {
+      console.error('Error al guardar la venta:', error);
+    }
+  });
+}
+  
 
   loadLast5Sales(){
    this.salesService.listLast5Sales().subscribe({
@@ -223,4 +237,15 @@ last5Sales:SaleList5last[]=[]
     }
   });
   }
+
+  private formatDateToLocalString(date: Date): string {
+  // Usamos el locale 'en-US' pero podrías usar 'es-EC' si prefieres
+  return formatDate(date, 'yyyy-MM-dd HH:mm:ss', 'en-US', 'America/Guayaquil');
+  
+  /* Alternativa sin usar formatDate:
+  const pad = (num: number) => num.toString().padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
+         `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  */
+}
 }
