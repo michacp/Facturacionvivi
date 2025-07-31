@@ -137,7 +137,7 @@ last5Sales:SaleList5last[]=[]
       productoId: [producto.id],
       productoname: [producto.name],
       cantidad: [1, Validators.required],
-      precioUnitario: [10, Validators.required], // puedes cambiar el precio base si lo incluyes en el array
+      precioUnitario: [producto.price, Validators.required], // puedes cambiar el precio base si lo incluyes en el array
       descuento: [0],
       codigoImpuesto: [producto.tax_percentage_id]
     });
