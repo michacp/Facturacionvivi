@@ -45,6 +45,7 @@ export class SaleListComponent {
       next: (res: any) => {
         this.dataSource.data = res.items || res; // Ajusta si tu backend retorna { items, total }
         this.totalItems = res.total || res.length;
+        console.log(this.dataSource.data)
       },
       error: (err) => console.error(err)
     });
