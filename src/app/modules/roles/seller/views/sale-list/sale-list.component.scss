@@ -1,3 +1,4 @@
+/* ===== Contenedor principal ===== */
 .container.table-container {
   padding: 1.5rem 2rem;
 
@@ -47,11 +48,72 @@
   }
 }
 
-// Colores alternos para filas
+/* ===== Colores alternos para filas ===== */
 .row-even {
   background-color: #f5f5f5 !important;
 }
 
 .row-odd {
   background-color: #e0e0e0 !important;
+}
+
+/* ===== Badge de ítems ===== */
+.custom-badge {
+  display: inline-block;
+  background-color: rgb(132, 79, 193);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.6rem;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+/* ===== Ajustes por columna ===== */
+
+/* Número de factura */
+.mat-column-factura_id {
+  width: 100px;
+  text-align: center;
+}
+
+/* Cliente */
+.mat-column-cliente {
+  width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fecha */
+.mat-column-fecha_emision {
+  width: 120px;
+}
+
+/* Tipo comprobante */
+.mat-column-tipo_comprobante {
+  width: 130px;
+}
+
+/* Forma de pago */
+.mat-column-forma_pago {
+  width: 150px;
+}
+
+/* Total */
+.mat-column-total {
+  width: 100px;
+  text-align: right;
+}
+
+/* Ítems */
+.mat-column-total_items {
+ 
+  font-size: 0.75rem; /* texto reducido solo en Ítems */
+  line-height: 1.2;
+ 
+ 
 }

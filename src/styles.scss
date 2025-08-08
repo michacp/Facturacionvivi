@@ -3,3 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  
+:root {
+  --mat-table-row-item-label-text-size: 0.6rem !important;
+}

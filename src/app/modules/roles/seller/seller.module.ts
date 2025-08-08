@@ -26,8 +26,7 @@ import { SaleFormComponent } from './views/sale-form/sale-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SaleListComponent } from './views/sale-list/sale-list.component'; 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 @NgModule({
   declarations: [
     SellerComponent,

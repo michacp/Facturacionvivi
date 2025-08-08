@@ -45,6 +45,7 @@ export class SaleListComponent {
       next: (res: any) => {
         this.dataSource.data = res.items || res; // Ajusta si tu backend retorna { items, total }
         this.totalItems = res.total || res.length; 
+        console.log(this.dataSource.data)
       },
       error: (err) => console.error(err)
     });
@@ -59,4 +60,19 @@ export class SaleListComponent {
   getRowClass(index: number): string {
     return index % 2 === 0 ? 'row-even' : 'row-odd';
   }
+
+expandedRows: { [key: number]: boolean } = {};
+
+getVisibleItems(venta: any, index: number) {
+  if (this.expandedRows[index]) {
+    return venta.items; // mostrar todos
+  }
+  return venta.items.slice(0, 2); // solo 2 primeros
+}
+
+toggleItems(index: number, event: Event) {
+  event.preventDefault(); // evita que el <a> recargue la página
+  this.expandedRows[index] = !this.expandedRows[index];
+}
+
 }
