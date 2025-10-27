@@ -55,8 +55,7 @@ export class SaleFormComponent {
 
   }
 
-  ngOnInit() {
-    this.printTicket()
+  ngOnInit() { 
     this.loadLast5Sales()
     this.initFacturaForm()
     this.getnewdata()
@@ -262,17 +261,7 @@ export class SaleFormComponent {
       }
     });
   }
-  printTicket() {
-    this.salesService.printTicketPDF("ss").subscribe({
-      next: (pdf) => {
-
-        console.log(pdf)
-      },
-      error: (err) => {
-        console.error('Error:', err);
-      }
-    });
-  }
+ 
   loadLast5Sales() {
     this.salesService.listLast5Sales().subscribe({
       next: (sales) => {
