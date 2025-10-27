@@ -250,6 +250,7 @@ export class SaleFormComponent {
           ventaId: objeto?.ventaId || null
         };
         this.initFacturaForm(); this.getnewdata(); this.elemtomonstrar = true; this.supplierSearch.reset(); this.Clientes = [];
+        this.loadLast5Sales()
       },
       error: (error) => {
         console.error('Error al guardar la venta:', error);
