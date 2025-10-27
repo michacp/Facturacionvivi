@@ -26,16 +26,16 @@ export class RegistroComponent {
 
 
     this.usuarioForm = this.fb.group({
-      user_users: ['michacp', Validators.required],
-      name_users: ['micha', Validators.required],
-      pass_users: ['123456', Validators.required],
-      pass_users1: ['123456', Validators.required],
-      razonSocial: ['PARAMO LEMA BYRON PATRICIO', Validators.required],
-      nombreComercial: ['TEAMCELLMANIA', Validators.required],
-      ruc: ['0301675765001', Validators.required],
-      correoelectronico_users: ['michacp@hotmail.com', [Validators.required, Validators.email]],
-      dirMatriz: ['LUIS CORDERO 4-17 Y SUCRE', Validators.required],
-      telefono_users: ['0909009900', Validators.required],
+      user_users: ['', Validators.required],
+      name_users: ['', Validators.required],
+      pass_users: ['', Validators.required],
+      pass_users1: ['', Validators.required],
+      razonSocial: ['', Validators.required],
+      nombreComercial: ['', Validators.required],
+      ruc: ['', Validators.required],
+      correoelectronico_users: ['', [Validators.required, Validators.email]],
+      dirMatriz: ['', Validators.required],
+      telefono_users: ['', Validators.required],
       obligadocontabilidad: [false, Validators.required],
       microempresas_users: [false, Validators.required],
       agenteretencion_users: [{ value: '1', disabled: true }]
