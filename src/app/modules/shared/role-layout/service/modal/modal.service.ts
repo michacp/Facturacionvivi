@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCustomerModalComponent } from '../../modals/new-customer-modal/new-customer-modal.component';
  import { Subject } from 'rxjs';
+import { EditProductComponent } from '../../components/edit-product/edit-product.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,5 +23,11 @@ export class ModalService {
         this.modalResponseSubject.next(result); // Emite los datos al componente padre
       }
     });
+  }
+    openEditProductModal(data:any): void {
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      width: '600px', 
+      data
+    }); 
   }
 }

@@ -1,13 +1,19 @@
-<aside class="sidebar d-flex flex-column"
-       [class.collapsed]="isCollapsed">
+<aside class="sidebar d-flex flex-column" [class.collapsed]="isCollapsed">
 
   <nav class="nav flex-column gap-1 mt-3">
-
+        <!-- FIRMA (nueva sección) -->
+    <a class="nav-link d-flex align-items-center text-dark" routerLink="/seller/home">
+      <i class="bi bi-speedometer2 fs-5"></i>
+      <span class="link-text ms-2">Inicio</span>
+    </a>
+    <!-- FIRMA (nueva sección) -->
+    <a class="nav-link d-flex align-items-center text-dark" routerLink="/seller/signature">
+      <i class="bi bi-pen fs-5"></i>
+      <span class="link-text ms-2">Firma</span>
+    </a>
     <!-- FACTURAS -->
-    <a class="nav-link d-flex align-items-center text-dark"
-       role="button"
-       (click)="toggleMenu('facturas')"
-       [attr.aria-expanded]="facturasOpen">
+    <a class="nav-link d-flex align-items-center text-dark" role="button" (click)="toggleMenu('facturas')"
+      [attr.aria-expanded]="facturasOpen">
       <i class="bi bi-receipt fs-5"></i>
       <span class="link-text ms-2">Facturas</span>
       <span class="ms-auto fs-4">{{ facturasOpen ? '−' : '+' }}</span>
@@ -21,10 +27,8 @@
     </div>
 
     <!-- PRODUCTOS / INVENTARIO -->
-    <a class="nav-link d-flex align-items-center text-dark"
-       role="button"
-       (click)="toggleMenu('productos')"
-       [attr.aria-expanded]="productosOpen">
+    <a class="nav-link d-flex align-items-center text-dark" role="button" (click)="toggleMenu('productos')"
+      [attr.aria-expanded]="productosOpen">
       <i class="bi bi-box-seam fs-5"></i>
       <span class="link-text ms-2">Productos</span>
       <span class="ms-auto fs-4">{{ productosOpen ? '−' : '+' }}</span>
@@ -32,27 +36,29 @@
     <div *ngIf="productosOpen" class="show">
       <ul class="nav flex-column ms-4">
         <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Ingresos</a></li>
-        <li><a routerLink="/new-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Nuevo Producto</a></li> 
-        <li><a routerLink="/list-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Productos</a></li>       
+        <li><a routerLink="/seller/new-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Nuevo Producto</a>
+        </li>
+        <li><a routerLink="/seller/list-product" class="nav-link text-dark"><i class="bi bi-dot"></i> Productos</a></li>
       </ul>
     </div>
 
     <!-- VENTAS -->
-    <a class="nav-link d-flex align-items-center text-dark"
-       role="button"
-       (click)="toggleMenu('ventas')"
-       [attr.aria-expanded]="ventasOpen">
+    <a class="nav-link d-flex align-items-center text-dark" role="button" (click)="toggleMenu('ventas')"
+      [attr.aria-expanded]="ventasOpen">
       <i class="bi bi-cart fs-5"></i>
       <span class="link-text ms-2">Ventas</span>
       <span class="ms-auto fs-4">{{ ventasOpen ? '−' : '+' }}</span>
     </a>
-    <div *ngIf="ventasOpen"  class="show">
+    <div *ngIf="ventasOpen" class="show">
       <ul class="nav flex-column ms-4">
-        <li><a routerLink="/list-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Lista de Ventas</a></li>
-        <li><a routerLink="/new-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Nueva Venta</a></li>
+        <li><a routerLink="/seller/list-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Lista de Ventas</a>
+        </li>
+        <li><a routerLink="/seller/new-sale" class="nav-link text-dark"><i class="bi bi-dot"></i> Nueva Venta</a></li>
         <li><a class="nav-link text-dark"><i class="bi bi-dot"></i> Devoluciones</a></li>
       </ul>
     </div>
+
+
 
   </nav>
 </aside>

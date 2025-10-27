@@ -1,0 +1,56 @@
+<div class="login-container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-4 login-card">
+    <h2 class="text-center mb-4 text-primary">Iniciar Sesión</h2>
+
+    <!-- Animación de carga -->
+    <div *ngIf="loading" class="text-center mb-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2">Iniciando sesión...</p>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger animate__animated animate__shakeX" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+
+      <!-- Usuario o Correo -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Usuario o Correo</mat-label>
+        <input matInput type="text" formControlName="usernameOrEmail" placeholder="usuario123 o ejemplo@correo.com">
+        <mat-error *ngIf="loginForm.get('usernameOrEmail')?.hasError('required')">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Contraseña -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="********">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Recuérdame -->
+      <mat-checkbox formControlName="rememberMe" class="mb-3">
+        Recuérdame
+      </mat-checkbox>
+
+      <!-- Botón -->
+      <button mat-raised-button color="primary" class="w-100 mb-3" [disabled]="!loginForm.valid || loading">
+        {{ loading ? 'Iniciando sesión...' : 'Ingresar' }}
+      </button>
+    </form>
+
+    <!-- Enlace a registro -->
+    <div class="text-center" *ngIf="!loading">
+      <a routerLink="/register" class="text-decoration-none text-primary">
+        ¿No tienes cuenta? Regístrate
+      </a>
+    </div>
+  </div>
+</div>

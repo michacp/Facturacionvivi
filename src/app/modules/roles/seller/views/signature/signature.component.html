@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 col-md-8 mx-auto">
+
+      <!-- LOADING -->
+      <div *ngIf="loading" class="text-center mt-5">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        <p class="mt-2">Cargando estado de firma...</p>
+      </div>
+
+      <!-- Card con estado de firma -->
+      <mat-card *ngIf="!loading && signatureStatus" class="shadow-lg">
+        <mat-card-header>
+          <div mat-card-avatar class="firma-icon">
+            <mat-icon>draw</mat-icon>
+          </div>
+          <mat-card-title>Firma Digital</mat-card-title>
+          <mat-card-subtitle>{{ signatureStatus.alias }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content class="mt-3">
+          <p><strong>Fecha de emisión:</strong>
+            {{ signatureStatus.issue_date | date:'longDate' }}
+          </p>
+          <p><strong>Fecha de expiración:</strong>
+            {{ signatureStatus.expiration_date | date:'longDate' }}
+          </p>
+
+          <p *ngIf="getDiasRestantes() !== null">
+            <strong>Días restantes:</strong>
+            <span [ngClass]="{
+              'text-danger': getDiasRestantes()! <= 30, 
+              'text-warning': getDiasRestantes()! > 30 && getDiasRestantes()! <= 90,
+              'text-success': getDiasRestantes()! > 90
+            }">
+              {{ getDiasRestantes() }} días
+            </span>
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Mostrar mensaje si no hay firma -->
+      <div *ngIf="!loading && !signatureStatus" class="alert alert-warning mt-3 d-flex align-items-center">
+        <mat-icon class="me-2">warning</mat-icon>
+        No hay ninguna firma registrada.
+      </div>
+
+      <!-- Botón agregar/editar firma -->
+      <div *ngIf="!loading" class="d-flex justify-content-center mt-4">
+        <button mat-raised-button color="primary" (click)="abrirModal()">
+          <mat-icon>{{ signatureStatus ? 'edit' : 'add' }}</mat-icon>
+          {{ signatureStatus ? 'Editar Firma' : 'Agregar Firma' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

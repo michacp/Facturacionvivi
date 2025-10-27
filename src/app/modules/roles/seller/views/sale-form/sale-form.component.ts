@@ -15,6 +15,8 @@ import { ProductosListSelect } from '../../models/Products.interface';
 import { ProductService } from '../../service/product/product.service';
 import { SaleService } from '../../service/sale/sale.service';
 import { formatDate } from '@angular/common';
+import { LoadingModalComponent } from '../../../../shared/role-layout/components/loading-modal/loading-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-sale-form',
   standalone: false,
@@ -31,7 +33,7 @@ export class SaleFormComponent {
   impuestos: ImpuestoSales[] = [];
   tipocomprobante: TipoComprobante[] = []
   formadepago: FormaPago[] = []
-last5Sales:SaleList5last[]=[]
+  last5Sales: SaleList5last[] = []
   private subscription!: Subscription;
 
   camposTotales = [
@@ -47,12 +49,14 @@ last5Sales:SaleList5last[]=[]
     private modalService: ModalService,
     private backendservice: ClientService,
     private productService: ProductService,
-    private salesService: SaleService
+    private salesService: SaleService,
+    private dialog: MatDialog
   ) {
 
   }
 
   ngOnInit() {
+    this.printTicket()
     this.loadLast5Sales()
     this.initFacturaForm()
     this.getnewdata()
@@ -189,63 +193,115 @@ last5Sales:SaleList5last[]=[]
 
 
   guardarFactura() {
-// Verificar que facturaForm existe y es válido
-  if (!this.facturaForm || !this.facturaForm.valid) {
-    console.warn('Formulario inválido o no inicializado');
-    return;
-  }
-
-  // Obtener el control de fecha de manera segura
-  const fechaControl = this.facturaForm.get('fechaEmision');
-  if (!fechaControl || !fechaControl.value) {
-    console.warn('Campo fechaEmision no encontrado o sin valor');
-    return;
-  }
-
-  // Formatear los valores
-  const formValue = {
-    ...this.facturaForm.value,
-    fechaEmision: this.formatDateToLocalString(fechaControl.value)
-  };
-  
-  this.elemtomonstrar = false;
-  this.salesService.saveSale(formValue).subscribe({
-    next: () => {
-      this.initFacturaForm();
-      this.getnewdata();
-      this.elemtomonstrar = true;
-      this.supplierSearch.reset();
-      this.Clientes = [];
-      console.log('Venta guardada correctamente');
-    },
-    error: (error) => {
-      console.error('Error al guardar la venta:', error);
+    // Verificar que facturaForm existe y es válido
+    if (!this.facturaForm || !this.facturaForm.valid) {
+      console.warn('Formulario inválido o no inicializado');
+      return;
     }
-  });
-}
-  
 
-  loadLast5Sales(){
-   this.salesService.listLast5Sales().subscribe({
-    next: (sales) => {
-      this.last5Sales = sales;
-      console.log(this.last5Sales)
-    },
-    error: (err) => {
-      console.error('Error:', err);
-      this.last5Sales = [];
+    // Obtener el control de fecha de manera segura
+    const fechaControl = this.facturaForm.get('fechaEmision');
+    if (!fechaControl || !fechaControl.value) {
+      console.warn('Campo fechaEmision no encontrado o sin valor');
+      return;
     }
-  });
+
+    // Formatear los valores
+    const formValue = {
+      ...this.facturaForm.value,
+      fechaEmision: this.formatDateToLocalString(fechaControl.value)
+    };
+
+    this.elemtomonstrar = false;
+    const dialogRef = this.dialog.open(LoadingModalComponent, {
+      disableClose: true,
+      data: {}
+    });
+
+    this.salesService.saveSale(formValue).subscribe({
+      next: (response: any) => {
+        let title = 'Venta guardada exitosamente';
+        let message = 'Factura no emitida.';
+        let success = true;
+        const objeto = JSON.parse(response);
+
+        if (objeto?.FacData) {
+
+          const { estado, mensajeSRI } = objeto.FacData;
+          if (estado === 'AUTORIZADO') {
+            title = '✅ Factura Autorizada';
+            message = `La factura fue autorizada correctamente. Clave de acceso: ${objeto.FacData.claveA}`;
+          } else if (estado === "DEVUELTA") {
+            title = '⚠️ Factura Devuelta';
+            message = mensajeSRI || 'El SRI devolvió la factura.';
+            success = false;
+          } else if (estado === 'NO AUTORIZADO') {
+            title = '❌ Factura No Autorizada';
+            message = mensajeSRI || 'El comprobante no fue autorizado.';
+            success = false;
+          }
+        }
+
+        // Mostrar el resultado en el modal
+        dialogRef.componentInstance.data.result = {
+          title,
+          message,
+          success,
+          ventaId: objeto?.ventaId || null
+        };
+        this.initFacturaForm(); this.getnewdata(); this.elemtomonstrar = true; this.supplierSearch.reset(); this.Clientes = [];
+      },
+      error: (error) => {
+        console.error('Error al guardar la venta:', error);
+        dialogRef.componentInstance.data.result = {
+          title: '❌ Error',
+          message: 'Ocurrió un error al guardar la venta o enviar al SRI.',
+          success: false
+        };
+      }
+    });
+  }
+  printTicket() {
+    this.salesService.printTicketPDF("ss").subscribe({
+      next: (pdf) => {
+
+        console.log(pdf)
+      },
+      error: (err) => {
+        console.error('Error:', err);
+      }
+    });
+  }
+  loadLast5Sales() {
+    this.salesService.listLast5Sales().subscribe({
+      next: (sales) => {
+        this.last5Sales = sales;
+        console.log(this.last5Sales)
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.last5Sales = [];
+      }
+    });
   }
 
   private formatDateToLocalString(date: Date): string {
-  // Usamos el locale 'en-US' pero podrías usar 'es-EC' si prefieres
-  return formatDate(date, 'yyyy-MM-dd HH:mm:ss', 'en-US', 'America/Guayaquil');
-  
-  /* Alternativa sin usar formatDate:
-  const pad = (num: number) => num.toString().padStart(2, '0');
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
-         `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-  */
-}
+    // Usamos el locale 'en-US' pero podrías usar 'es-EC' si prefieres
+    return formatDate(date, 'yyyy-MM-dd HH:mm:ss', 'en-US', 'America/Guayaquil');
+
+    /* Alternativa sin usar formatDate:
+    const pad = (num: number) => num.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
+           `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    */
+  }
+  loading: boolean = false
+  imprimirVenta(venta: any) {
+    // Mostrar animación de carga
+    this.loading = true;
+    this.salesService.printTicketPDF({ id: venta.saleId }).subscribe({
+      next: () => this.loading = false,
+      error: (err) => this.loading = false
+    });
+  }
 }

@@ -1,0 +1,53 @@
+.login-container {
+  background-color: rgb(132, 79, 193);
+  background: linear-gradient(135deg, #844fc1 0%, #5a2d8e 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  background: #fff;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+// Animaciones
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Efecto de vibración para errores
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+// Spinner personalizado
+.spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+// Efecto de hover para el botón
+button[mat-raised-button]:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+// Transición para los campos de formulario
+mat-form-field {
+  transition: all 0.3s ease;
+  
+  &:focus-within {
+    transform: translateY(-2px);
+  }
+}

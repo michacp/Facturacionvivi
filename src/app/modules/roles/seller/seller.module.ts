@@ -15,18 +15,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { ProductListComponent } from './views/product-list/product-list.component'; 
+import { ProductListComponent } from './views/product-list/product-list.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SaleFormComponent } from './views/sale-form/sale-form.component';
- import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SaleListComponent } from './views/sale-list/sale-list.component'; 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+import { SaleListComponent } from './views/sale-list/sale-list.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SignatureComponent } from './views/signature/signature.component';
+import { MatDividerModule } from '@angular/material/divider';
+
 @NgModule({
   declarations: [
     SellerComponent,
@@ -35,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProductListComponent,
     SaleFormComponent,
     SaleListComponent,
+    SignatureComponent,
   ],
   imports: [
     CommonModule,
@@ -50,14 +54,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatCardModule,
     MatChipsModule,
-    RouterModule, 
+    RouterModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-        MatDatepickerModule,
+    MatDatepickerModule,
     MatNativeDateModule,
-     MatProgressSpinnerModule 
+    MatProgressSpinnerModule,
+    MatDividerModule 
   ],
+
 })
 export class SellerModule { }

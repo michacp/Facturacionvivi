@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  isCollapsed = false;
+ isCollapsed = false;
   facturasOpen = false;
   productosOpen = false;
   ventasOpen = false;

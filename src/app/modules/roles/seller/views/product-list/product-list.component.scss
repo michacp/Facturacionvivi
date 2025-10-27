@@ -68,3 +68,17 @@
 .row-odd {
   background-color: #e0e0e0 !important; // o el color que prefieras
 }
+ 
+
+
+:host ::ng-deep .mat-mdc-row,
+:host ::ng-deep .mat-mdc-row .mat-mdc-cell {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+:host ::ng-deep .mat-mdc-row:hover,
+:host ::ng-deep .mat-mdc-row:hover .mat-mdc-cell,
+:host ::ng-deep .mat-mdc-row:hover td {
+  background-color: rgba(132, 79, 193, 0.08) !important;
+}

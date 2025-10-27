@@ -77,7 +77,7 @@
   </div>
 
   <!-- Tabla Productos -->
-  <div class="row mt-3">
+  <div class="row mt-3 tabla-venta">
     <div class="col-md-12">
       <table class="table table-bordered table-sm text-center">
         <thead class="table-light">
@@ -148,27 +148,48 @@
 </form>
 </div>
 <div class="col-lg-4">
-  <h4 class="text-center mb-3">Últimas 5 Ventas</h4>
+ <h4 class="text-center mb-3">Últimas 5 Ventas</h4>
 
-<mat-card *ngFor="let venta of last5Sales" class="mb-2 compact-card">
-  <mat-card-title class="titulo">{{ venta.saleNumber }}</mat-card-title>
-  <mat-card-subtitle class="codigo">
-    Fecha: {{ venta.issueDate | date:'shortDate' }}
-  </mat-card-subtitle>
+  <mat-card *ngFor="let venta of last5Sales" class="mb-2 compact-card position-relative">
+    <mat-card-title class="titulo">{{ venta.saleNumber }}</mat-card-title>
+    <mat-card-subtitle class="codigo">
+      Fecha: {{ venta.issueDate | date:'shortDate' }}
+    </mat-card-subtitle>
 
-  <div class="info-linea">
-    <span><strong>Monto Total:</strong> ${{ +venta.totalAmount | number:'1.2-2' }}</span>
-  </div>
+    <div class="info-linea">
+      <span><strong>Monto Total:</strong> ${{ +venta.totalAmount | number:'1.2-2' }}</span>
+    </div>
 
-  <div *ngFor="let item of venta.items.slice(0, 2)" class="info-linea">
-    <span>({{ item.quantity }}) {{ item.productName }} </span>
-    <span>${{ item.unitPrice | number:'1.2-2' }}</span>
-  </div>
+    <div *ngFor="let item of venta.items.slice(0, 2)" class="info-linea">
+      <span>({{ item.quantity }}) {{ item.productName }}</span>
+      <span>${{ item.unitPrice | number:'1.2-2' }}</span>
+    </div>
 
-  <div *ngIf="venta.items.length > 2" class="info-linea">
-    <span class="text-muted">+ {{ venta.items.length - 2 }} más...</span>
-  </div>
-</mat-card>
+    <div *ngIf="venta.items.length > 2" class="info-linea">
+      <span class="text-muted">+ {{ venta.items.length - 2 }} más...</span>
+    </div>
+
+    <!-- Botón Imprimir -->
+<!-- Botón Imprimir -->
+<!-- Botón Imprimir -->
+<div class="text-end mt-2">
+  <button mat-stroked-button color="primary" (click)="imprimirVenta(venta)" [disabled]="loading">
+    @if (!loading) {
+      <ng-container>
+        <mat-icon>print</mat-icon>
+        <span>Imprimir</span>
+      </ng-container>
+    } @else {
+      <mat-progress-spinner
+        diameter="20"
+        mode="indeterminate"
+        class="spinner-inline">
+      </mat-progress-spinner>
+    }
+  </button>
+</div>
+
+  </mat-card>
 
 </div>
 

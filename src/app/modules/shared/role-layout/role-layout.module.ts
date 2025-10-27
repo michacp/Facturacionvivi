@@ -23,14 +23,20 @@ import { NewCustomerModalComponent } from './modals/new-customer-modal/new-custo
 // Angular Material Modules
  
 import { MatSelectModule }    from '@angular/material/select';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { FileSignatureUploadComponent } from './components/file-signature-upload/file-signature-upload.component';
+import { LoadingModalComponent } from './components/loading-modal/loading-modal.component';
+import { MatProgressSpinnerModule  } from '@angular/material/progress-spinner';
  
+ 
+
 @NgModule({
   declarations: [
     SidebarComponent,
     NavbarComponent,
     GenericSelectorComponent,
     GenericChipsSelectorComponent, 
-    GenericAutocompleteComponent, NewCustomerModalComponent
+    GenericAutocompleteComponent, NewCustomerModalComponent, EditProductComponent, FileSignatureUploadComponent, LoadingModalComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +55,7 @@ import { MatSelectModule }    from '@angular/material/select';
      MatButton, 
       MatButtonModule,
       MatTooltipModule,
-       MatSelectModule
+       MatSelectModule,MatProgressSpinnerModule
   ],
     exports: [
     SidebarComponent,
@@ -57,7 +63,9 @@ import { MatSelectModule }    from '@angular/material/select';
     GenericSelectorComponent,
     GenericChipsSelectorComponent, 
     GenericAutocompleteComponent,
-    NewCustomerModalComponent
-  ]
+    NewCustomerModalComponent, 
+    EditProductComponent,
+    LoadingModalComponent
+  ], 
 })
 export class RoleLayoutModule { }

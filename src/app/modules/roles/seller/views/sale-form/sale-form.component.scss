@@ -107,3 +107,34 @@ $primary-dark: darken($primary-color, 15%);
     }
   }
 }
+
+
+
+.tabla-venta {
+  table {
+    font-size: 0.85rem; // Ajusta según el tamaño que desees
+  }
+
+  th, td {
+    padding: 0.3rem; // También puedes reducir el espaciado
+    vertical-align: middle;
+  }
+
+  input, mat-select {
+    font-size: 0.85rem;
+  }
+}
+
+.spinner-inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.compact-card {
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.compact-card:hover {
+  transform: scale(1.02);
+}

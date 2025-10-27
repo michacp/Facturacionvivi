@@ -68,4 +68,44 @@ export class SaleService {
     const endpoint = `${this.apiUrl}/sales/get5lastsales`;
     return this.http.get<any[]>(endpoint);
   }
+printTicketPDF(data: any): Observable<'ok'> {
+  const endpoint = `${this.apiUrl}/sales/ticket-pdf`;
+
+  return new Observable(observer => {
+    this.http.post<{ base64: string }>(endpoint, data).subscribe({
+      next: (res) => {
+        try {
+          const base64 = res.base64;
+          if (!base64) throw new Error('No se recibió base64 válido');
+
+          // Convertir base64 → PDF → Blob → URL
+          const byteCharacters = atob(base64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const blobUrl = URL.createObjectURL(blob);
+
+          // 🪟 Abrir PDF en nueva pestaña
+          const newTab = window.open(blobUrl, '_blank');
+          if (!newTab) console.warn('El navegador bloqueó la apertura del PDF');
+          else newTab.addEventListener('unload', () => URL.revokeObjectURL(blobUrl));
+
+          // Devolver éxito
+          observer.next('ok');
+          observer.complete();
+        } catch (error) {
+          console.error('❌ Error al procesar el PDF:', error);
+          observer.error(error);
+        }
+      },
+      error: (err) => {
+        console.error('❌ Error al obtener el PDF:', err);
+        observer.error(err);
+      }
+    });
+  });
+}
 }

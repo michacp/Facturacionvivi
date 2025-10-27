@@ -1,0 +1,32 @@
+<!-- Modo: guardando venta -->
+<div class="modal-container" *ngIf="!data.result">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p class="text">Guardando venta, por favor espere...</p>
+</div>
+
+<!-- Modo: resultado -->
+<div class="modal-container" *ngIf="data.result">
+  <h2>{{ data.result.title }}</h2>
+  <p>{{ data.result.message }}</p>
+
+  <div class="buttons" *ngIf="!loadingPDF; else loadingAnim">
+    <button mat-raised-button color="primary" (click)="close()">Aceptar</button>
+
+    <button
+      *ngIf="data.result.success"
+      mat-raised-button
+      color="accent"
+      (click)="imprimir()"
+    >
+      Imprimir
+    </button>
+  </div>
+
+  <!-- 🔹 Animación de carga mientras se genera el PDF -->
+  <ng-template #loadingAnim>
+    <div class="loading-section">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Generando PDF, por favor espere...</p>
+    </div>
+  </ng-template>
+</div>

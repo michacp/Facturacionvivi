@@ -1,0 +1,102 @@
+<div class="col-md-6 offset-md-3">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="form-title">R<span>egistrar Usuario</span></h1>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre de Usuario -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput formControlName="user_users" placeholder="Escribe aqui el Nombre de usuario">
+        </mat-form-field>
+
+        <!-- Nombres -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Nombres</mat-label>
+          <input matInput formControlName="name_users" placeholder="Escribe aqui los Nombres" >
+        </mat-form-field>
+
+        <!-- Contraseña -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="pass_users" placeholder="Escribe aqui la contraseña">
+        </mat-form-field>
+
+        <!-- Confirmar contraseña -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput type="password" formControlName="pass_users1" placeholder="Repite la contraseña">
+        </mat-form-field>
+
+        <!-- Razón Social -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Razón Social</mat-label>
+          <input matInput formControlName="razonSocial" >
+        </mat-form-field>
+
+        <!-- Nombre Comercial -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Nombre Comercial</mat-label>
+          <input matInput formControlName="nombreComercial" >
+        </mat-form-field>
+
+        <!-- RUC -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>RUC</mat-label>
+          <input matInput formControlName="ruc" placeholder="Escribe aqui el RUC">
+        </mat-form-field>
+
+        <!-- Correo -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput type="email" formControlName="correoelectronico_users" placeholder="Escribe aqui el correo">
+        </mat-form-field>
+
+        <!-- Dirección Matriz -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Dirección Matriz</mat-label>
+          <input matInput formControlName="dirMatriz" >
+        </mat-form-field>
+
+        <!-- Teléfono -->
+        <mat-form-field appearance="outline" class="w-100 my-2">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono_users" placeholder="Escribe aquí el teléfono">
+        </mat-form-field>
+
+        <!-- Obligado contabilidad -->
+<mat-checkbox formControlName="obligadocontabilidad">
+  Obligado a llevar contabilidad
+</mat-checkbox>
+ 
+        <!-- Checkbox Rimpe -->
+<!-- Régimen -->
+<mat-form-field appearance="outline" class="w-100 my-2">
+  <mat-label>Régimen</mat-label>
+  <mat-select formControlName="microempresas_users">
+    <mat-option *ngFor="let regimen of regimenes" [value]="regimen.id">
+      {{ regimen.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+ 
+
+        <!-- Checkbox Agente Retención -->
+        <mat-checkbox (change)="toggleAgenteRetencion($event)">Agente de Retención</mat-checkbox>
+        <mat-form-field *ngIf="showAgenteRetencion" appearance="outline" class="w-100 my-2">
+          <mat-label>Agente Retención</mat-label>
+          <input matInput formControlName="agenteretencion_users">
+        </mat-form-field>
+
+        <!-- Botón -->
+        <div class="text-end mt-3">
+          <button mat-raised-button color="primary" type="submit">Ingresar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
