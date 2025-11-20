@@ -24,10 +24,13 @@ export class ModalService {
       }
     });
   }
-    openEditProductModal(data:any): void {
-    const dialogRef = this.dialog.open(EditProductComponent, {
-      width: '600px', 
-      data
-    }); 
-  }
+openEditProductModal(data: any) {
+  const dialogRef = this.dialog.open(EditProductComponent, {
+    width: '900px',
+    height: '600px',
+    data
+  });
+
+  return dialogRef.afterClosed(); // <<--- devolvemos el observable
+}
 }

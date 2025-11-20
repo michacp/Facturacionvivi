@@ -8,6 +8,7 @@ import { SaleFormComponent } from './views/sale-form/sale-form.component';
 import { SaleListComponent } from './views/sale-list/sale-list.component';
 import { AuthGuard } from '../../public/guards/auth.guard'; 
 import { SignatureComponent } from './views/signature/signature.component';
+import { InvoiceListComponent } from '../invoices/views/invoice-list/invoice-list.component';
 const routes: Routes = [{ path: '', component: SellerComponent,
    
   children: [
@@ -16,7 +17,7 @@ const routes: Routes = [{ path: '', component: SellerComponent,
     { path: 'list-product', component: ProductListComponent },
     { path: 'new-sale', component: SaleFormComponent},
     { path: 'list-sale', component: SaleListComponent},
-    { path: 'signature', component: SignatureComponent},
+    { path: 'signature', component: SignatureComponent}, 
     { path: '', redirectTo: 'home', pathMatch: 'full' }
   ]
  }];

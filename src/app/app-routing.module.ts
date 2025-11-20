@@ -6,6 +6,10 @@ const routes: Routes = [
     canMatch: [AuthGuard],     
     canActivate: [AuthGuard]   
     },
+      { path: 'invoices', loadChildren: () => import('./modules/roles/invoices/invoices.module').then(m => m.InvoicesModule),
+    canMatch: [AuthGuard],     
+    canActivate: [AuthGuard]   
+    },
   { path: '', loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule) },
   { path: '**', redirectTo: '' }
 ];

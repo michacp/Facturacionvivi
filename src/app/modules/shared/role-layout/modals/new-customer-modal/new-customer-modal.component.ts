@@ -30,7 +30,7 @@ export class NewCustomerModalComponent {
       tipoIdentificacion: ['', Validators.required],
       razonSocial: ['', Validators.required],
       direccion: [''],
-      email: ['', Validators.email],
+      email: [''],
       telefono: [''],
     });
   }

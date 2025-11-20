@@ -63,7 +63,7 @@ export class ProductFormComponent {
   private initializeForm(): void {
     this.productoForm = this.fb.group({
       tipo_item: [null, Validators.required],
-      nombre: ['', [Validators.required, Validators.maxLength(100)]],
+      nombre: ['', [Validators.required, Validators.maxLength(200)]],
       descripcion: ['', Validators.maxLength(255)],
       precio_unitario: ['', [Validators.required, Validators.min(0)]],
       id_tarifa_impuesto: ['', Validators.required],

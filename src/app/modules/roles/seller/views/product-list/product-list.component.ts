@@ -29,7 +29,7 @@ export class ProductListComponent {
   products: ProductoList[] = []
 
   categories: TypeItem[] = [];
-  constructor(private backend: ProductService,private modalservice:ModalService) { }
+  constructor(private backend: ProductService, private modalservice: ModalService) { }
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -84,7 +84,12 @@ export class ProductListComponent {
     this.currentPage = event.pageIndex;
     this.applyFilters();
   }
-  onRowClick(productId: number) {
-  this.modalservice.openEditProductModal({id:productId})
+onRowClick(productId: number) {
+  this.modalservice.openEditProductModal({ id: productId })
+    .subscribe((result) => {
+      if (result) {
+        this.applyFilters();   // <<--- AQUÍ SE EJECUTA
+      }
+    });
 }
 }

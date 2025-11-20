@@ -13,6 +13,7 @@ export class GenericChipsSelectorComponent {
   @Input() label: string = 'Elementos seleccionados';
   @Input() availableItems: { id: number; name: string }[] = [];
   @Output() selectionChange = new EventEmitter<number[]>(); // 🔹 Emitir solo IDs
+  @Input() preselectedItems: { id: number; name: string }[] = [];
 
   selectedItems: { id: number; name: string }[] = [];
   filterControl = new FormControl('');
@@ -24,8 +25,19 @@ export class GenericChipsSelectorComponent {
     this.setupFilter();
   }
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['availableItems']) { // 🔹 Detectar cambios en availableItems
+    if (changes['availableItems'] || changes['preselectedItems']) {
       this.setupFilter();
+
+      if (this.preselectedItems?.length) {
+        // Mapeamos los datos entrantes al formato que usa el componente
+        this.selectedItems = this.preselectedItems.map(item => ({
+          id: item.id,
+          name: item.name
+        }));
+
+        // Emitimos los IDs seleccionados para mantener sincronizado el formulario del padre
+        this.selectionChange.emit(this.selectedItems.map(item => item.id));
+      }
     }
   }
   setupFilter() {
@@ -49,22 +61,22 @@ export class GenericChipsSelectorComponent {
       this.selectedItems.push(selectedItem);
       this.selectionChange.emit(this.selectedItems.map(item => item.id));
     }
-  
+
     // 🔹 Limpiar manualmente el input después de seleccionar
-    this.filterControl.setValue('', { emitEvent: false }); 
+    this.filterControl.setValue('', { emitEvent: false });
     this.filterInput.nativeElement.value = ''; // 🔹 Esto borra visualmente el texto
     this.filterControl.updateValueAndValidity(); // 🔹 Forzar actualización
-    
+
     // 🔹 Restablecer el filtro para mostrar todas las opciones disponibles
     this.setupFilter();
-  
+
     // 🔹 Asegurar que el input reciba el foco nuevamente
     setTimeout(() => this.filterInput?.nativeElement.focus(), 0);
   }
 
   removeItem(item: { id: number; name: string }) {
     this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
-    this.selectionChange.emit(this.selectedItems.map(item => item.id)); 
+    this.selectionChange.emit(this.selectedItems.map(item => item.id));
 
     // 🔹 Forzar actualización del filtro después de eliminar
     this.filterControl.setValue(this.filterControl.value, { emitEvent: true });
@@ -90,7 +102,7 @@ export class GenericChipsSelectorComponent {
       '#AED6F1', // Azul claro
       '#A3E4D7', // Verde agua
       '#F9E79F'  // Amarillo durazno
-    ];  
+    ];
     return colors[index % colors.length]; // 🔹 Alterna los colores según el índice
   }
 }

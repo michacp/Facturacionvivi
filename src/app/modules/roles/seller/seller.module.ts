@@ -29,6 +29,7 @@ import { SaleListComponent } from './views/sale-list/sale-list.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SignatureComponent } from './views/signature/signature.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { InvoicesModule } from '../invoices/invoices.module';
 
 @NgModule({
   declarations: [
